@@ -1,0 +1,69 @@
+{
+ "name": "Total Songs",
+ "children": [
+  {
+   "name": "Hip Hop",
+   "children": [
+    {"name": "Alternative Hip Hop", "size": 153},
+    {"name": "Dirty South", "size": 20},
+    {"name": "Southern Hip Hop", "size": 40},
+    {"name": "East Coast Hip Hop", "size": 150},
+	{"name": "Underground Hip Hop", "size": 30},
+	{"name": "Hardcore Hip Hop", "size": 80},
+	{"name": "Gangsta Hip Hop", "size": 75},
+    {"name": "West Coast Hip Hop", "size": 100}
+    ]
+   },
+   {
+   "name": "Pop",
+   "children": [
+    {"name": "Brit Pop", "size": 156},
+    {"name": "Pop Punk", "size": 47},
+    {"name": "Pixie", "size": 53},
+    {"name": "Teen Pop", "size": 281},
+	{"name": "Pop Rock", "size": 137},
+	{"name": "Power Pop", "size": 70},
+	{"name": "Dance Pop", "size": 162}
+    ]
+   },
+   {
+   "name": "Country",
+   "children": [
+    {"name": "Alternative Country", "size": 109},
+    {"name": "Americana", "size": 33},
+    {"name": "Bluegrass", "size": 64},
+    {"name": "Honky Tonk", "size": 104},
+	{"name": "Outlaw Country", "size": 17},
+	{"name": "Urban Cowboy", "size": 36},
+	{"name": "Traditional Country", "size": 88},
+    {"name": "Contemporary Country", "size": 49}
+    ]
+   },
+   {
+   "name": "Rock",
+   "children": [
+    {"name": "Acid Rock", "size": 122},
+    {"name": "Funk Rock", "size": 59},
+    {"name": "Hard Rock", "size": 137},
+    {"name": "Indie Rock", "size": 94},
+	{"name": "Punk Rock", "size": 160},
+	{"name": "Classic Rock", "size": 243},
+	{"name": "Psychedelic Rock", "size": 113}
+    ]
+   },
+   {
+   "name": "Metal",
+   "children": [
+    {"name": "Alternative Metal", "size": 174},
+    {"name": "Black Metal", "size": 62},
+    {"name": "Death Metal", "size": 76},
+    {"name": "Doom Metal", "size": 83},
+	{"name": "Metalcore", "size": 28},
+	{"name": "Progressive Metal", "size": 70},
+	{"name": "Thrash Metal", "size": 15}
+    ]
+   }
+   ]
+}
+
+  
