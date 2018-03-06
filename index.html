@@ -18,7 +18,7 @@ var y = d3.scaleSqrt()
     .range([0, radius]);
 var color = d3.scaleOrdinal()
 	.domain(["Main","Country","Pop","Rock","Hip Hop","Metal"])
-	.range(["FFFFFF","A52A2A","FF69B4","FF0000","0000FF","000000"]);
+	.range(["FFFFFF","B9770E","F1948A","A93226","2874A6","424949"]);
 var partition = d3.partition();
 var arc = d3.arc()
     .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
