@@ -14,7 +14,7 @@
 	</div>
 	<section class="display">
 		<div class="menu">
-			<div class="menu-title">Filters</div>
+			<div class="menu-title">Data</div>
 			<button class="fields">Genre Fields</button>
 		    <div class="fields-menu" id="genre-menu">
 		    	<div>Action <input type="checkbox" id="Action" onclick="setGenreTrue('Action')"></div>
@@ -52,7 +52,11 @@
 		    <div style="color: white; padding: 0 8em;">Year <input type="checkbox" id="Year"></div>
 		    <div style="color: white; padding: 0 8em;">Critic Score <input type="checkbox" id="Critic Score"></div>
 		    <div style="color: white; padding: 0 8em;">User Score <input type="checkbox" id="User Score"></div>
-		    <div class="menu-title">Display</div>
+		    <div class="menu-title">Filters</div>
+		    <div>
+		    	Released in Range <input class="w3-input" type="text" maxlength="4" style="color: white;"> 
+		    	to <input class="w3-input" type="text" maxlength="4" style="color: white;">
+		    </div>
 		</div>
 	    <div id="graph"></div>
 	</section>
