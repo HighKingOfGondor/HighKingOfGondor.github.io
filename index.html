@@ -1,68 +1,103 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<head>
-	<title>Video Game Business Visualization</title>
- 	<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
- 	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
- 	<script src="https://d3js.org/d3.v4.min.js"></script>       
-</head>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<body>
-	<div class="header">
-		<h1>Video Game Business Visualization</h2>
-		<p class="subtitle">A Visualization by Jared Wheeler and Michael Wakin</p>
-	</div>
-	<section class="display">
-		<div class="menu">
-			<div class="menu-title">Data</div>
-			<button class="fields">Genre Fields</button>
-		    <div class="fields-menu" id="genre-menu">
-		    	<div>Action <input type="checkbox" id="Action" onclick="setGenreTrue('Action')"></div>
-		    	<div>Adventure <input type="checkbox" id="Adventure" onclick="setGenreTrue('Adventure')"></div>
-		    	<div>Fighting <input type="checkbox" id="Fighting" onclick="setGenreTrue('Fighting')"></div>
-		    	<div>Misc <input type="checkbox" id="Misc" onclick="setGenreTrue('Misc')"></div>
-		    	<div>Platform <input type="checkbox" id="Platform" onclick="setGenreTrue('Platform')"></div>
-		    	<div>Puzzle <input type="checkbox" id="Puzzle" onclick="setGenreTrue('Puzzle')"></div>
-		    	<div>Racing <input type="checkbox" id="Racing" onclick="setGenreTrue('Racing')"></div>
-		    	<div>Role-Playing <input type="checkbox" id="Role-Playing" onclick="setGenreTrue('Role-Playing')"></div>
-		    	<div>Shooter <input type="checkbox" id="Shooter" onclick="setGenreTrue('Shooter')"></div>
-		    	<div>Simulation <input type="checkbox" id="Simulation" onclick="setGenreTrue('Simulation')"></div>
-		    	<div>Sports <input type="checkbox" id="Sports" onclick="setGenreTrue('Sports')"></div>
-		    	<div>Strategy <input type="checkbox" id="Strategy" onclick="setGenreTrue('Strategy')"></div>
-		    	<p id="text" style="display:none">Checkbox is CHECKED!</p>
-		    </div>
-		    <button class="fields">Publisher Fields</button>
-		    <div class="fields-menu" id="pub-menu">
-		    	<div>Electronic Arts <input type="checkbox" id="Electronic Arts" onclick="setPubTrue('Electronic Arts')"></div>
-		    	<div>Square Enix <input type="checkbox" id="Square Enix" onclick="setPubTrue('Square Enix')"></div>
-		    	<div>Nintendo <input type="checkbox" id="Nintendo" onclick="setPubTrue('Nintendo')"></div>
-		    	<div>Sony <input type="checkbox" id="Sony" onclick="setPubTrue('Sony')"></div>
-		    	<div>Xseed Games <input type="checkbox" id="Xseed Games" onclick="setPubTrue('Xseed Games')"></div>
-		    	<div>Capcom <input type="checkbox" id="Capcom" onclick="setPubTrue('Capcom')"></div>
-		    	<div>Activision Blizzard <input type="checkbox" id="Activision Blizzard" onclick="setPubTrue('Activision Blizzard')"></div>
-		    	<div>Namco Bandai Games <input type="checkbox" id="Namco Bandai Games" onclick="setPubTrue('Namco Bandai Games')"></div>
-		    	<div>Telltale Games <input type="checkbox" id="Telltale Games" onclick="setPubTrue('Telltale Games')"></div>
-		    	<div>Ubisoft <input type="checkbox" id="Ubisoft" onclick="setPubTrue('Ubisoft')"></div>
-		    	<div>Bethesda Softworks <input type="checkbox" id="Bethesda Softworks" onclick="setPubTrue('Bethesda Softworks')"></div>
-		    	<div>Smaller Publishers <input type="checkbox" id="Smaller Publishers" onclick="setPubTrue('Smaller Publishers')"></div>
-		    	<p id="text2" style="display:none">Checkbox is CHECKED!</p>
-		    </div>
-		    <div class="menu-title">Display</div>
-		    <div style="color: white; padding-left: 8em; padding-top: 15px;">Sales <input type="checkbox" id="Sales"></div>
-		    <div style="color: white; padding-left: 8em;">Year <input type="checkbox" id="Year"></div>
-		    <div style="color: white; padding-left: 8em;">Critic Score <input type="checkbox" id="Critic Score"></div>
-		    <div style="color: white; padding-left: 8em; padding-bottom: 10px; border-color: white; border-bottom: solid;">User Score <input type="checkbox" id="User Score"></div>
-		    <div class="menu-title">Filters</div>
-		    <form style="color: white; padding-left: 2em; padding-top: 15px; padding-bottom: 10px; border-color: white; border-bottom: solid;">
-				Released in Range <input type="text" name="earlyYear" maxlength="4" size="4">
-				to <input type="text" name="laterYear" maxlength="4" size="4">
-			</form>
-			<button class="confirm" id="confirm" onclick="confirm()">Confirm</button>
-		</div>
-	    <div id="graph"></div>
-	</section>
-    
-    <script src="./main.js"></script>
-    <script src="./menuFunctions.js"></script>
-    
-</body>
+        <title>Title</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1 class="display-4">Video Game Business Visualization</h1>
+            <p class="lead">A visualization by Jared Wheeler and Michael Wakin</p>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-pills card-header-pills">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#genre">Genre</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#pub">Publisher</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#display">Display</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="genre">
+                                    <p class="card-text">Genre Filters</p>
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group mr-2">
+                                            <button type="button" class="btn btn-secondary">Action</button>
+                                            <button type="button" class="btn btn-secondary">Adventure</button>
+                                            <button type="button" class="btn btn-secondary">Fighting</button>
+                                            <button type="button" class="btn btn-secondary">Platform</button>
+                                            <button type="button" class="btn btn-secondary">Strategy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pub">
+                                    <p class="card-text">Publisher Filters</p>
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group mr-2">
+                                            <button type="button" class="btn btn-secondary">EA</button>
+                                            <button type="button" class="btn btn-secondary">Square Enix</button>
+                                            <button type="button" class="btn btn-secondary">Sony</button>
+                                            <button type="button" class="btn btn-secondary">Ubisoft</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="display">
+                                    <p class="card-text">Display Filters</p>
+                                    <div class="btn-toolbar">
+                                        <div class="btn-group mr-2">
+                                            <button type="button" class="btn btn-secondary">Sales</button>
+                                            <button type="button" class="btn btn-secondary">Year</button>
+                                            <button type="button" class="btn btn-secondary">Critic Score</button>
+                                            <button type="button" class="btn btn-secondary">User Score</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <p class="card-text">Filters</p>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Min Year" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Max Year" />
+                                </div>
+                            </div>
+
+                            <button class="btn btn-block btn-primary mt-5">Update Chart</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">You nerd</h5>
+                            <p class="card-text">There's a chart here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
