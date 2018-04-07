@@ -34,7 +34,7 @@ h1 {
 }
 
 .menu {
-	background-color: #033454;
+	background: radial-gradient(#033454 2%, #262626 98%);
 	width: 30%;
 	height: 650px;
 	float: left;
