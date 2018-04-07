@@ -34,9 +34,9 @@ h1 {
 }
 
 .menu {
-	background: radial-gradient(#033454 2%, #262626 98%);
+	background: linear-gradient(#033454, #262626);
 	width: 30%;
-	height: 650px;
+	height: 680px;
 	border-style: ridge;
 	border-width: 5px;
 }
@@ -57,7 +57,7 @@ h1 {
 }
 
 .active, .fields:hover {
-    background-color: #ccc; 
+    background-color: #262626; 
 }
 
 .fields-menu {
@@ -71,8 +71,9 @@ h1 {
 }
 
 .confirm {
-	background-color: seagreen;
-	border: 2px solid lightseagreen;    
+	font-family: Luminari, fantasy;
+	background: radial-gradient(#023D2E, #034E3B);
+	border: 2px solid #0D7B60;    
 	color: ghostwhite;
     padding: 15px;
     display: block;
@@ -82,4 +83,17 @@ h1 {
     margin-top: 20px;
     cursor: pointer;
 	border-radius: 16px;
+}
+
+input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    vertical-align: bottom;
+}
+label.checkbox {
+    vertical-align: top;
+    line-height: 28px;
+    margin: 2px 0;
+    display: block;
+    height: 18px;
 }

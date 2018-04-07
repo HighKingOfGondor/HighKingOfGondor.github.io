@@ -8,6 +8,11 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+		var genreFields = ["Action", "Adventure", "Fighting", "Misc", "Platform", "Puzzle", "Racing", "Role-Playing", "Shooter", "Simulation", "Sports", "Strategy"];
+		var pubFields = ["Electronic Arts", "Square Enix", "Nintendo", "Sony", "Xseed Games", "Capcom", "Activision Blizzard", "Namco Bandai Games", "Telltale Games", "Ubisoft", "Bethesda Softworks", "Smaller Publishers"];
+		var displayFields = ["Sales", "Year", "Critic Score", "User Score"];
+	</script>
 	<div class="header">
 		<h1>Video Game Business Visualization</h2>
 		<p class="subtitle">A Visualization by Jared Wheeler and Michael Wakin</p>
@@ -15,47 +20,72 @@
 	<section class="display">
 		<div class="menu">
 			<div class="menu-title">Data</div>
-			<button class="fields">Genre Fields</button>
+			<button class="fields" id="genreFields">Genre Fields</button>
 		    <div class="fields-menu" id="genre-menu">
-		    	<div>Action <input type="checkbox" id="Action" onclick="setGenreTrue('Action')"></div>
-		    	<div>Adventure <input type="checkbox" id="Adventure" onclick="setGenreTrue('Adventure')"></div>
-		    	<div>Fighting <input type="checkbox" id="Fighting" onclick="setGenreTrue('Fighting')"></div>
-		    	<div>Misc <input type="checkbox" id="Misc" onclick="setGenreTrue('Misc')"></div>
-		    	<div>Platform <input type="checkbox" id="Platform" onclick="setGenreTrue('Platform')"></div>
-		    	<div>Puzzle <input type="checkbox" id="Puzzle" onclick="setGenreTrue('Puzzle')"></div>
-		    	<div>Racing <input type="checkbox" id="Racing" onclick="setGenreTrue('Racing')"></div>
-		    	<div>Role-Playing <input type="checkbox" id="Role-Playing" onclick="setGenreTrue('Role-Playing')"></div>
-		    	<div>Shooter <input type="checkbox" id="Shooter" onclick="setGenreTrue('Shooter')"></div>
-		    	<div>Simulation <input type="checkbox" id="Simulation" onclick="setGenreTrue('Simulation')"></div>
-		    	<div>Sports <input type="checkbox" id="Sports" onclick="setGenreTrue('Sports')"></div>
-		    	<div>Strategy <input type="checkbox" id="Strategy" onclick="setGenreTrue('Strategy')"></div>
-		    	<p id="text" style="display:none">Checkbox is CHECKED!</p>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Action">Action</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Adventure">Adventure</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Fighting">Fighting</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Misc">Misc</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Platform">Platform</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Puzzle">Puzzle</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Racing">Racing</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Role-Playing">Role-Playing</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Shooter">Shooter</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Simulation">Simulation</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Sports">Sports</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Strategy">Strategy</label>
 		    </div>
-		    <button class="fields">Publisher Fields</button>
+		    <button class="fields" id="pubFields">Publisher Fields</button>
 		    <div class="fields-menu" id="pub-menu">
-		    	<div>Electronic Arts <input type="checkbox" id="Electronic Arts" onclick="setPubTrue('Electronic Arts')"></div>
-		    	<div>Square Enix <input type="checkbox" id="Square Enix" onclick="setPubTrue('Square Enix')"></div>
-		    	<div>Nintendo <input type="checkbox" id="Nintendo" onclick="setPubTrue('Nintendo')"></div>
-		    	<div>Sony <input type="checkbox" id="Sony" onclick="setPubTrue('Sony')"></div>
-		    	<div>Xseed Games <input type="checkbox" id="Xseed Games" onclick="setPubTrue('Xseed Games')"></div>
-		    	<div>Capcom <input type="checkbox" id="Capcom" onclick="setPubTrue('Capcom')"></div>
-		    	<div>Activision Blizzard <input type="checkbox" id="Activision Blizzard" onclick="setPubTrue('Activision Blizzard')"></div>
-		    	<div>Namco Bandai Games <input type="checkbox" id="Namco Bandai Games" onclick="setPubTrue('Namco Bandai Games')"></div>
-		    	<div>Telltale Games <input type="checkbox" id="Telltale Games" onclick="setPubTrue('Telltale Games')"></div>
-		    	<div>Ubisoft <input type="checkbox" id="Ubisoft" onclick="setPubTrue('Ubisoft')"></div>
-		    	<div>Bethesda Softworks <input type="checkbox" id="Bethesda Softworks" onclick="setPubTrue('Bethesda Softworks')"></div>
-		    	<div>Smaller Publishers <input type="checkbox" id="Smaller Publishers" onclick="setPubTrue('Smaller Publishers')"></div>
-		    	<p id="text2" style="display:none">Checkbox is CHECKED!</p>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Electronic Arts">Electronic Arts</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Square Enix">Square Enix</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Nintendo">Nintendo</label>
+		    	<label class="checkbox"><input type="checkbox" id="Sony">Sony</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Xseed Games">Xseed Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Capcom">Capcom</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Activision Blizzard">Activision Blizzard</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Namco Bandai Games">Namco Bandai Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Telltale Games">Telltale Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Ubisoft">Ubisoft</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Bethesda Softworks">Bethesda Softworks</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Smaller Publishers">Smaller Publishers</label>
 		    </div>
 		    <div class="menu-title">Display</div>
-		    <div style="color: white; padding-left: 8em; padding-top: 15px;">Sales <input type="checkbox" id="Sales"></div>
-		    <div style="color: white; padding-left: 8em;">Year <input type="checkbox" id="Year"></div>
-		    <div style="color: white; padding-left: 8em;">Critic Score <input type="checkbox" id="Critic Score"></div>
-		    <div style="color: white; padding-left: 8em; padding-bottom: 10px; border-color: white; border-bottom: solid;">User Score <input type="checkbox" id="User Score"></div>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Sales">Sales</label>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Year">Year</label>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Critic Score">Critic Score</label>
+			<label class="checkbox" style="color: white; padding-left: 8em; padding-bottom: 15px;">
+		    	<input type="checkbox" id="User Score">User Score</label>
 		    <div class="menu-title">Filters</div>
 		    <form style="color: white; padding-left: 2em; padding-top: 15px; padding-bottom: 10px; border-color: white; border-bottom: solid;">
-				Released in Range <input type="text" name="earlyYear" maxlength="4" size="4">
-				to <input type="text" name="laterYear" maxlength="4" size="4">
+				Released in Range <input type="text" id="earlyYear" maxlength="4" size="4">
+				to <input type="text" id="laterYear" maxlength="4" size="4">
 			</form>
 			<button class="confirm" id="confirm" onclick="confirm()">Confirm</button>
 		</div>
