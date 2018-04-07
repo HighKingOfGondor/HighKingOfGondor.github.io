@@ -5,7 +5,7 @@ html, body{
 
 h1 {
 	font-family: Luminari, fantasy;
-	color: white;
+	color: ghostwhite;
 	text-align: center;
 }
 
@@ -16,19 +16,19 @@ h1 {
 
 .subtitle {
 	font-style: italic;
-	color: white;
+	color: ghostwhite;
 	text-align: center;
 }
 
 .menu-title {
 	font-family: Luminari, fantasy;
 	background-color: #033454;
-	color: white;
+	color: ghostwhite;
 	font-size: 20px;
 	text-align: center;
 	padding: 5px;
 	border-style: none none dashed none;
-	border-color: white;
+	border-color: ghostwhite;
 	border-width: 2px;
 
 }
@@ -37,7 +37,6 @@ h1 {
 	background: radial-gradient(#033454 2%, #262626 98%);
 	width: 30%;
 	height: 650px;
-	float: left;
 	border-style: ridge;
 	border-width: 5px;
 }
@@ -45,7 +44,7 @@ h1 {
 .fields {
    	font-family: Luminari, fantasy;
 	background-color: #033454;
-	color: white;
+	color: ghostwhite;
 	font-size: 16px;
 	text-align: center;
 	padding: 3px;
@@ -67,10 +66,20 @@ h1 {
     padding-bottom: 4px;
     display: none;
     background-color: #033454;
-    color: white;
+    color: ghostwhite;
     overflow: hidden;
 }
 
-.organizer {
-
+.confirm {
+	background-color: seagreen;
+	border: 2px solid lightseagreen;    
+	color: ghostwhite;
+    padding: 15px;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-top: 20px;
+    cursor: pointer;
+	border-radius: 16px;
 }
