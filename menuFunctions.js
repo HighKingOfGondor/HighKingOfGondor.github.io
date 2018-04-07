@@ -31,13 +31,3 @@ function setPubTrue (param) {
        text.style.display = "none";
     }
 }
-
-function setFilters () {
-	var year = document.getElementById("Year");
-	var timeFilter = document.getElementById("timeFilter");
-	if (year.checked == true) {
-		timeFilter.style.display = "block";
-	} else {
-		timeFilter.style.display = "none";
-	}
-}
