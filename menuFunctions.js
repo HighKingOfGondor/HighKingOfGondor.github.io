@@ -12,9 +12,19 @@ for (var i = 0; i < acc.length; i++) {
     });
 }
 
-function setTrue (param) {
+function setGenreTrue (param) {
     var checkBox = document.getElementById(param);
     var text = document.getElementById("text");
+    if (checkBox.checked == true){
+        text.style.display = "block";
+    } else {
+       text.style.display = "none";
+    }
+}
+
+function setPubTrue (param) {
+    var checkBox = document.getElementById(param);
+    var text = document.getElementById("text2");
     if (checkBox.checked == true){
         text.style.display = "block";
     } else {
