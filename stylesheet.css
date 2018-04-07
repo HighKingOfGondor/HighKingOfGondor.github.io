@@ -1,5 +1,6 @@
 h2 {
 	font-family: Luminari, fantasy;
+	color: white;
 }
 
 .header {
@@ -8,4 +9,5 @@ h2 {
 
 .subtitle {
 	font-style: italic;
+	color: white;
 }
