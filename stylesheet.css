@@ -1,14 +1,16 @@
 h2 {
 	font-family: Luminari, fantasy;
 	color: white;
+	text-align: center;
 }
 
 .header {
 	background-color: #262626;
-	padding: 30px;
+	padding: 20px;
 }
 
 .subtitle {
 	font-style: italic;
 	color: white;
+	text-align: center;
 }
