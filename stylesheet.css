@@ -20,6 +20,26 @@ h2 {
 	text-align: center;
 }
 
-.menu {
-	
+.genre-fields {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 2.0s;
+}
+
+.active, .genre-fields:hover {
+    background-color: #ccc; 
+}
+
+.genre-menu {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
 }
