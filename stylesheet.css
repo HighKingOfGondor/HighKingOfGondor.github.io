@@ -3,7 +3,7 @@ html, body{
 	padding: 0
 }
 
-h2 {
+h1 {
 	font-family: Luminari, fantasy;
 	color: white;
 	text-align: center;
@@ -20,26 +20,51 @@ h2 {
 	text-align: center;
 }
 
-.genre-fields {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 2.0s;
+.menu-title {
+	font-family: Luminari, fantasy;
+	background-color: #033454;
+	color: white;
+	font-size: 20px;
+	text-align: center;
+	padding: 3px;
 }
 
-.active, .genre-fields:hover {
+.menu {
+	background-color: #033454;
+	width: 30%;
+	height: 400px;
+	float: left;
+	border-style: ridge;
+	border-width: 5px;
+}
+
+.fields {
+   	font-family: Luminari, fantasy;
+	background-color: #033454;
+	color: white;
+	font-size: 16px;
+	text-align: center;
+	padding: 3px;
+	border-style: groove;
+	border-width: 3px;
+    cursor: pointer;
+    width: 100%;
+    outline: none;
+    transition: 0.4s;
+}
+
+.active, .fields:hover {
     background-color: #ccc; 
 }
 
-.genre-menu {
+.fields-menu {
     padding: 0 18px;
     display: none;
-    background-color: white;
+    background-color: #033454;
+    color: white;
     overflow: hidden;
+}
+
+.organizer {
+
 }
