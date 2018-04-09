@@ -49,8 +49,8 @@ d3.csv("Video_Games_Sales_as_at_22_Dec_2016.csv", function(error, data) {
     	.enter().append("circle")
 	      	.attr("class", "dot")
 	      	.attr("r", 1.5)
-	      	.attr("cx", function(d) { return x(d.year); })
-	      	.attr("cy", function(d) { return y(d.sales); })
+	      	.attr("cx", function(d) { return d.year; })
+	      	.attr("cy", function(d) { return d.sales; })
 	      	.style("fill", "steelblue")
 	      	.style("stroke", "none");
 });
