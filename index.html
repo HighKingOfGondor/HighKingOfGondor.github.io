@@ -1,211 +1,98 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
+<head>
+	<title>Video Game Business Visualization</title>
+ 	<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+ 	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+ 	<script src="https://d3js.org/d3.v4.min.js"></script>       
+</head>
 
-body {
-  font: 8px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.dot {
-  stroke: #000;
-}
-
-</style>
 <body>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
-
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 940 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
-
-var x = d3.scale.linear()
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-  	.tickFormat(d3.format("d"));
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("Video_Games_Sales_as_at_22_Dec_2016.csv", function(error, data) {
-  	if (error) throw error;
-
-	data.forEach(function(d) {
-		//if (d.Genre=="Racing" && +d.Year_of_Release>2005) {	etc.
-	    	d.sales = +d.Global_Sales;
-	    	d.year = +d.Year_of_Release;
-	    //}
-  	});
-
-  	x.domain(d3.extent(data, function(d) { return d.year; }));
-  	y.domain(d3.extent(data, function(d) { return d.sales; }));
-
-  	svg.append("g")
-      	.attr("class", "x axis")
-      	.attr("transform", "translate(0," + height + ")")
-      	.call(xAxis)
-    	.append("text")
-	      	.attr("class", "label")
-	      	.attr("x", width/2)
-	      	.attr("y", 30)
-	      	.style("font-size", "14px")
-	      	.style("text-anchor", "middle")
-	      	.text("Year of Release");
-
-  	svg.append("g")
-      	.attr("class", "y axis")
-      	.call(yAxis)
-    	.append("text")
-	     	.attr("class", "label")
-	      	.attr("transform", "rotate(-90)")
-	      	.attr("x", -(height/2))
-	      	.attr("y", -22)
-		    .style("font-size", "14px")
-			.style("text-anchor", "middle")
-			.text("Global Sales (millions)");
-
-  	svg.selectAll(".dot")
-      	.data(data)
-    	.enter().append("circle")
-	      	.attr("class", "dot")
-	      	.attr("r", 1.5)
-	      	.attr("cx", function(d) { return x(d.year); })
-	      	.attr("cy", function(d) { return y(d.sales); })
-	      	.style("fill", "steelblue")
-	      	.style("stroke", "none");
-});
-</script>
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.dot {
-  stroke: #000;
-}
-
-</style>
-<body>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
-
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var x = d3.scale.linear()
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var color = d3.scale.category10();
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("Video_Games_Sales_as_at_22_Dec_2016.csv", function(error, data) {
-  	if (error) throw error;
-	data.forEach(function(d) {
-    	d.Global_Sales = +d.Global_Sales;
-    	d.Year_of_Release = +d.Year_of_Release;
-  	});
-
-  	x.domain(d3.extent(data, function(d) { return d.Year_of_Release; })).nice();
-  	y.domain(d3.extent(data, function(d) { return d.Global_Sales; })).nice();
-
-  	svg.append("g")
-      	.attr("class", "x axis")
-      	.attr("transform", "translate(0," + height + ")")
-      	.call(xAxis)
-    	.append("text")
-	      	.attr("class", "label")
-	      	.attr("x", width)
-	      	.attr("y", -6)
-	      	.style("text-anchor", "end");
-
-  	svg.append("g")
-      	.attr("class", "y axis")
-      	.call(yAxis)
-    	.append("text")
-     	.attr("class", "label")
-      	.attr("transform", "rotate(-90)")
-      	.attr("y", 6)
-      	.attr("dy", ".71em")
-		.style("text-anchor", "end")
-
-  	svg.selectAll(".dot")
-      	.data(data)
-    	.enter().append("circle")
-	      	.attr("class", "dot")
-	      	.attr("r", 3.5)
-	      	.attr("cx", function(d) { return x(d.Year_of_Release); })
-	      	.attr("cy", function(d) { return y(d.Global_Sales); })
-	      	.style("fill", "steelblue");
-
-  	var legend = svg.selectAll(".legend")
-      	.data(color.domain())
-    	.enter().append("g")
-      		.attr("class", "legend")
-      		.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  	legend.append("rect")
-      	.attr("x", width - 18)
-      	.attr("width", 18)
-      	.attr("height", 18)
-      	.style("fill", color);
-
-  	legend.append("text")
-      	.attr("x", width - 24)
-      	.attr("y", 9)
-		.attr("dy", ".35em")
-		.style("text-anchor", "end")
-		.text(function(d) { return d; });
-});
-</script> -->
+	<script type="text/javascript">
+		var genreFields = ["Action", "Adventure", "Fighting", "Misc", "Platform", "Puzzle", "Racing", "Role-Playing", "Shooter", "Simulation", "Sports", "Strategy"];
+		var pubFields = ["Electronic Arts", "Square Enix", "Nintendo", "Sony", "Xseed Games", "Capcom", "Activision Blizzard", "Namco Bandai Games", "Telltale Games", "Ubisoft", "Bethesda Softworks", "Smaller Publishers"];
+		var displayFields = ["Sales", "Year", "Critic Score", "User Score"];
+	</script>
+	<div class="header">
+		<h1>Video Game Business Visualization</h2>
+		<p class="subtitle">A Visualization by Jared Wheeler and Michael Wakin</p>
+	</div>
+	<section class="display">
+		<div class="menu">
+			<div class="menu-title">Data</div>
+			<button class="fields" id="genreFields">Genre Fields</button>
+		    <div class="fields-menu" id="genre-menu">
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Action">Action</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Adventure">Adventure</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Fighting">Fighting</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Misc">Misc</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Platform">Platform</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Puzzle">Puzzle</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Racing">Racing</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Role-Playing">Role-Playing</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Shooter">Shooter</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Simulation">Simulation</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Sports">Sports</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Strategy">Strategy</label>
+		    </div>
+		    <button class="fields" id="pubFields">Publisher Fields</button>
+		    <div class="fields-menu" id="pub-menu">
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Electronic Arts">Electronic Arts</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Square Enix">Square Enix</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Nintendo">Nintendo</label>
+		    	<label class="checkbox"><input type="checkbox" id="Sony">Sony</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Xseed Games">Xseed Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Capcom">Capcom</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Activision Blizzard">Activision Blizzard</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Namco Bandai Games">Namco Bandai Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Telltale Games">Telltale Games</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Ubisoft">Ubisoft</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Bethesda Softworks">Bethesda Softworks</label>
+		    	<label class="checkbox">
+		    		<input type="checkbox" id="Smaller Publishers">Smaller Publishers</label>
+		    </div>
+		    <div class="menu-title">Display</div>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Sales">Sales</label>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Year">Year</label>
+		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    	<input type="checkbox" id="Critic Score">Critic Score</label>
+			<label class="checkbox" style="color: white; padding-left: 8em; padding-bottom: 15px;">
+		    	<input type="checkbox" id="User Score">User Score</label>
+		    <div class="menu-title">Filters</div>
+		    <form style="color: white; padding-left: 2em; padding-top: 15px; padding-bottom: 10px; border-color: white; border-bottom: solid;">
+				Released in Range <input type="text" id="earlyYear" maxlength="4" size="4">
+				to <input type="text" id="laterYear" maxlength="4" size="4">
+			</form>
+			<button class="confirm" id="confirm" onclick="confirm()">Confirm</button>
+		</div>
+	    <div id="graph"></div>
+	</section>
+    
+    <script src="./main.js"></script>
+    <script src="./menuFunctions.js"></script>
+    
+</body>
