@@ -1,9 +1,9 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 940 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
-var x = d3.scale.linear()
+var x = d3.scaleLinear()
     .range([0, width]);
-var y = d3.scale.linear()
+var y = d3.scaleLinear()
     .range([height, 0]);
 var xAxis = d3.svg.axis()
     .scale(x)
