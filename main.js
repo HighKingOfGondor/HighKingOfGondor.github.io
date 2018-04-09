@@ -1,3 +1,5 @@
+
+
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 940 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
@@ -5,13 +7,8 @@ var x = d3.scaleLinear()
     .range([0, width]);
 var y = d3.scaleLinear()
     .range([height, 0]);
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-  	.tickFormat(d3.format("d"));
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+var xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
+var yAxis = d3.axisLeft(y);
 var svg = d3.select("#graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -20,10 +17,8 @@ var svg = d3.select("#graph").append("svg")
 d3.csv("Video_Games_Sales_as_at_22_Dec_2016.csv", function(error, data) {
   	if (error) throw error;
 	data.forEach(function(d) {
-		//if (d.Genre=="Racing" && +d.Year_of_Release>2005) {	etc.
-	    	d.sales = +d.Global_Sales;
-	    	d.year = +d.Year_of_Release;
-	    //}
+    	d.sales = +d.Global_Sales;
+    	d.year = +d.Year_of_Release;
   	});
   	x.domain(d3.extent(data, function(d) { return d.year; }));
   	y.domain(d3.extent(data, function(d) { return d.sales; }));
