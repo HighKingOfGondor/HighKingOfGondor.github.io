@@ -33,12 +33,21 @@ h1 {
 
 }
 
+.bigdiv {
+	float: left;
+	height: 680px;
+	display: inline-block;
+}
+
 .menu {
 	background: linear-gradient(#033454, #262626);
-	width: 30%;
-	height: 680px;
 	border-style: ridge;
 	border-width: 5px;
+	width: 30%;
+}
+
+.graph {
+	width: 65%;
 }
 
 .fields {
@@ -107,3 +116,4 @@ label.checkbox {
 .dot {
   stroke: #000;
 }
+
