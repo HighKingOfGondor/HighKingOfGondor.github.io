@@ -15,11 +15,40 @@ var yLabel;
 var chart;
 var chartHeight;
 var chartWidth;
+var line = false;
+
+//chart data visuals
+var genres = [];
+var publishers = [];
+var displays = [];
+var div = d3.select("body").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
 
 //data
 var data;
 
 init();
+
+function set (genresPassed, publishersPassed, displaysPassed) {
+    genres = genresPassed.slice(0);
+    publishers = publishersPassed.slice(0);
+    displays = displaysPassed.slice(0);
+    if (displays.includes("Year")) {
+        xLabel = "Year";
+        yLabel = displays[1];
+        line = true;
+    } else {
+        xLabel = displays[0];
+        yLabel = displays[1];
+        line = false;
+    }
+    console.log("set called");
+    initChart();
+    createAxis();
+    drawDots();
+}
 
 function init() {
 
@@ -36,14 +65,13 @@ function init() {
             data.forEach(function(d) {
                 d.Year_of_Release = +d.Year_of_Release;
             });
-            dataYrange = d3.extent(data, function (d) { return d.Global_Sales; });
-            console.log(dataYrange);
-            dataXrange = d3.extent(data, function (d) { return d.Year_of_Release; });
-            console.log(dataXrange);
+            data.forEach(function(d) {
+                d.Critic_Score = +d.Critic_Score;
+            });
+            data.forEach(function(d) {
+                d.User_Score = +d.User_Score;
+            });
             console.log("CSV loaded");
-            initChart();
-            createAxis();
-            drawDots();
         }
     })
 }
@@ -58,6 +86,29 @@ function initChart () {
 }
 
 function createAxis () {
+    //load the ranges
+    dataYrange = d3.extent(data, function (d) { 
+        if (yLabel == "Year")
+            return d.Year_of_Release;
+        else if (yLabel == "Sales")
+            return d.Global_Sales;
+        else if (yLabel == "Critic Score") 
+            return d.Critic_Score;
+        else if (yLabel == "User Score")
+            return d.User_Score;
+    });
+    dataXrange = d3.extent(data, function (d) { 
+        if (xLabel == "Year")
+            return d.Year_of_Release;
+        else if (xLabel == "Sales")
+            return d.Global_Sales;
+        else if (xLabel == "Critic Score") 
+            return d.Critic_Score;
+        else if (xLabel == "User Score")
+            return d.User_Score; 
+    });
+
+
     // x axis
     chart.xScale = d3.scaleLinear()
         .domain([d3.min(dataXrange), d3.max(dataXrange)])
@@ -107,13 +158,39 @@ function drawDots () {
     chart.plotArea.selectAll(".dot")
         .data(data)
         .enter().append("circle")
-          .attr("class", "dot")
-          .attr("r", 2.5)
-          .attr("cx", function(d) { return chart.xScale(d.Year_of_Release); })
-          .attr("cy", function(d) { return chart.yScale(d.Global_Sales); })
-          .style("fill", "steelblue")
-          .style("stroke", "none")
-          .on("click", function (d) { console.log(d.Year_of_Release + " " + d.Global_Sales); });
+        .attr("class", "dot")
+        .attr("r", 2.5)
+        .attr("cx", function(d) { 
+            if (xLabel == "Sales")
+                return chart.xScale(d.Global_Sales);
+            else if (xLabel == "Critic Score") 
+                return chart.xScale(d.Critic_Score);
+            else if (xLabel == "User Score")
+                return chart.xScale(d.User_Score);  
+        })
+        .attr("cy", function(d) { 
+            if (yLabel == "Sales")
+                return chart.yScale(d.Global_Sales);
+            else if (yLabel == "Critic Score") 
+                return chart.yScale(d.Critic_Score);
+            else if (yLabel == "User Score")
+                return chart.yScale(d.User_Score); 
+        })
+        .style("fill", "steelblue")
+        .style("stroke", "none")
+        .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            div.html(d.Name + "<br/>"  + d.Publisher + "<br/>"  + d.Developer + "<br/>"  + d.Year_of_Release + "<br/>"  + d.Rating)  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            })                  
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        });
 }
 
 
