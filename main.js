@@ -24,17 +24,18 @@ var displays = [];
 var div = d3.select("body").append("div")   
     .attr("class", "tooltip")               
     .style("opacity", 0);
-
+var yearRange;
 
 //data
 var data;
 
 init();
 
-function set (genresPassed, publishersPassed, displaysPassed) {
+function set (genresPassed, publishersPassed, displaysPassed, years) {
     genres = genresPassed.slice(0);
     publishers = publishersPassed.slice(0);
     displays = displaysPassed.slice(0);
+    yearRange = years;
     if (displays.includes("Year")) {
         xLabel = "Year";
         yLabel = displays[1];
@@ -47,7 +48,11 @@ function set (genresPassed, publishersPassed, displaysPassed) {
     console.log("set called");
     initChart();
     createAxis();
-    drawDots();
+    if (line == true) {
+        drawLines();
+    } else {
+        drawDots();
+    }
 }
 
 function init() {
@@ -119,13 +124,11 @@ function createAxis () {
         .scale(chart.xScale);
 
     chart.xAxisContainer = chart.append("g")
-        //.attr("class", "xAxis")
         .attr("transform", "translate(" + (margin.left) + ", " + (chartHeight + margin.top) + ")")
         .call(chart.xAxis);
 
     // x axis header label
     chart.append("text")
-        //.attr("class", "xAxis")
         .style("font-size", "12px")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (margin.left + chartWidth / 2.0) + ", " + (chartHeight + (margin.bottom / 2.0)) + ")")
@@ -141,14 +144,12 @@ function createAxis () {
         .scale(chart.yScale);
 
     chart.yAxisContainer = chart.append("g")
-        //.attr("class", "yAxis")
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
         .call(chart.yAxis);
 
     // y axis header label
     chart.append('text')
         .style("font-size", "12px")
-        //.attr("class", "yAxis")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (margin.left / 2.0) + ", " + (chartHeight / 2.0) + ") rotate(-90)")
         .text(yLabel);
@@ -168,6 +169,7 @@ function drawDots () {
             else if (xLabel == "User Score")
                 return chart.xScale(d.User_Score);  
         })
+        //y position based on the value passed
         .attr("cy", function(d) { 
             if (yLabel == "Sales")
                 return chart.yScale(d.Global_Sales);
@@ -178,6 +180,7 @@ function drawDots () {
         })
         .style("fill", "steelblue")
         .style("stroke", "none")
+        //pop up with information with mouse is over the dot
         .on("mouseover", function(d) {      
             div.transition()        
                 .duration(200)      
@@ -185,7 +188,8 @@ function drawDots () {
             div.html(d.Name + "<br/>"  + d.Publisher + "<br/>"  + d.Developer + "<br/>"  + d.Year_of_Release + "<br/>"  + d.Rating)  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
-            })                  
+            })       
+        //remove box when mouse is off           
         .on("mouseout", function(d) {       
             div.transition()        
                 .duration(500)      

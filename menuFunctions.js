@@ -66,5 +66,5 @@ function confirm () {
 	} else {
 		var yearConfirmed = [document.getElementById("earlyYear").value, document.getElementById("laterYear").value];
 	}
-	set (genreConfirmed, pubConfirmed, displayConfirmed);
+	set (genreConfirmed, pubConfirmed, displayConfirmed, yearConfirmed);
 }
