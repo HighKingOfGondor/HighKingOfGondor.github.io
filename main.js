@@ -30,6 +30,7 @@ var yearRange;
 var data;
 
 init();
+initChart();
 
 function set (genresPassed, publishersPassed, displaysPassed, years) {
     genres = genresPassed.slice(0);
@@ -45,9 +46,12 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
         yLabel = displays[1];
         line = false;
     }
-    console.log("set called");
-    initChart();
-    createAxis();
+    if (d3.select(".x.axis").empty()) {
+    	createAxis();
+    } else {
+    	resetAxis();
+    	createAxis();
+    }
     if (line == true) {
         drawLines();
     } else {
@@ -90,6 +94,17 @@ function initChart () {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 }
 
+function resetAxis () {
+    d3.select(".x.axis")
+        .remove();
+    chart.select(".y.axis")
+        .remove();
+    chart.selectAll(".dot")
+        .remove();
+    chart.selectAll(".text")
+    	.remove();
+}
+
 function createAxis () {
     //load the ranges
     dataYrange = d3.extent(data, function (d) { 
@@ -113,7 +128,6 @@ function createAxis () {
             return d.User_Score; 
     });
 
-
     // x axis
     chart.xScale = d3.scaleLinear()
         .domain([d3.min(dataXrange), d3.max(dataXrange)])
@@ -125,13 +139,17 @@ function createAxis () {
 
     chart.xAxisContainer = chart.append("g")
         .attr("transform", "translate(" + (margin.left) + ", " + (chartHeight + margin.top) + ")")
+    	.transition().duration(500)
+    	.attr("class", "x axis")
         .call(chart.xAxis);
 
     // x axis header label
     chart.append("text")
         .style("font-size", "12px")
+        .attr("class", "text")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (margin.left + chartWidth / 2.0) + ", " + (chartHeight + (margin.bottom / 2.0)) + ")")
+        .transition().duration(500)
         .text(xLabel);
 
     // y axis labels
@@ -145,13 +163,17 @@ function createAxis () {
 
     chart.yAxisContainer = chart.append("g")
         .attr("transform", "translate(" + margin.left + ", " + margin.top + ")")
+        .transition().duration(500)
+        .attr("class", "y axis")
         .call(chart.yAxis);
 
     // y axis header label
     chart.append('text')
         .style("font-size", "12px")
         .attr("text-anchor", "middle")
+        .attr("class", "text")
         .attr("transform", "translate(" + (margin.left / 2.0) + ", " + (chartHeight / 2.0) + ") rotate(-90)")
+        .transition().duration(500)
         .text(yLabel);
 }
 
