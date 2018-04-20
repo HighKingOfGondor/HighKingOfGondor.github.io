@@ -202,6 +202,17 @@ function drawDots () {
         })
         .style("fill", "steelblue")
         .style("stroke", "none")
+        .filter(function(d) {
+		    for(var i = 0; i < genres.length; i++)
+		    {
+		        if (d.Genre == genres[i])
+		        	return true;
+		        if (d.Publisher == publishers[i])
+		        	return true;
+		    }
+		    d3.select(this).style("opacity", 0.0);
+		    return false;
+        })
         //pop up with information with mouse is over the dot
         .on("mouseover", function(d) {      
             div.transition()        
