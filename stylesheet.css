@@ -4,33 +4,30 @@ html, body{
 }
 
 h1 {
-	font-family: Luminari, fantasy;
-	color: ghostwhite;
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+	color: white;
 	text-align: center;
+    font-weight: normal;
 }
 
 .header {
-	background: linear-gradient(#262626, #033454);
-	padding: 20px;
-}
+    background-color: rgb(80,0,0);
 
-.subtitle {
-	font-style: italic;
-	color: ghostwhite;
-	text-align: center;
+	top: 0;
+    padding: 1px;
+    height: 60px;
+    border-bottom-style: solid;
+    border-color: rgb(228,0,43);
+    border-width: 1px;
 }
 
 .menu-title {
-	font-family: Luminari, fantasy;
-	background-color: #033454;
-	color: ghostwhite;
+	font-family: Arial, Helvetica, sans-serif;
+	color: black;
 	font-size: 20px;
-	text-align: center;
-	padding: 5px;
-	border-style: none none dashed none;
-	border-color: ghostwhite;
-	border-width: 2px;
-
+	text-align: left;
+	padding: 2px;
 }
 
 .bigdiv {
@@ -40,72 +37,91 @@ h1 {
 }
 
 .menu {
-	background: linear-gradient(#033454, #262626);
-	border-style: ridge;
-	border-width: 5px;
-	width: 30%;
+	width: 200px;
 }
 
 .graph {
-	width: 65%;
+	width: 40%;
 }
 
 .fields {
-   	font-family: Luminari, fantasy;
-	background-color: #033454;
-	color: ghostwhite;
-	font-size: 16px;
-	text-align: center;
-	padding: 3px;
-	border-style: groove;
-	border-width: 3px;
+   	font-family: Arial, Helvetica, sans-serif;
+	background-color: white;
+    font-size: 18px;
+	text-align: left;
+	padding: 1px;
     cursor: pointer;
     width: 100%;
-    outline: none;
-    transition: 0.4s;
+    border: none;
+    background-image: url('arrow.png'); 
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 6px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(214,210,196);
+    border-width: 0.5px;
 }
 
-.active, .fields:hover {
-    background-color: #262626; 
+.fields:hover {
+    background-color: rgb(51,44,44);
+    color: white;
+    background-image: url('null.png'); 
+}
+
+.active {
+    background-image: url('arrow_full.png'); 
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 6px;
+    border: none;
 }
 
 .fields-menu {
-    padding-left: 18px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-bottom: 6px;
     display: none;
-    background-color: #033454;
-    color: ghostwhite;
-    overflow: hidden;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(214,210,196);
+    border-width: 0.5px;
+    padding-bottom: 8px;
 }
 
 .confirm {
-	font-family: Luminari, fantasy;
-	background: radial-gradient(#023D2E, #034E3B);
-	border: 2px solid #0D7B60;    
-	color: ghostwhite;
-    padding: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: rgb(214,210,196);
+    padding: 5px;
     display: block;
     text-align: center;
+    float: left;
     font-size: 16px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 8px;
     cursor: pointer;
-	border-radius: 16px;
+    border: none;
+}
+
+.confirm:hover {
+    background-color: rgb(51,44,44);
+    color: white;
 }
 
 input[type="checkbox"] {
-    width: 24px;
-    height: 24px;
-    vertical-align: bottom;
+    cursor: pointer;
+    vertical-align: center;
 }
+
 label.checkbox {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: black;
     vertical-align: top;
-    line-height: 28px;
-    margin: 2px 0;
     display: block;
-    height: 18px;
+    height: 12px;
 }
+
+/*.graph {
+    border-style: solid;
+    border-color: rgb(214,210,196);
+}*/
 
 .axis path,
 .axis line {
@@ -120,12 +136,13 @@ label.checkbox {
 div.tooltip {	
     position: absolute;			
     text-align: center;			
-    width: 120px;					
-    height: 120px;					
+/*    width: 120px;					
+    height: 120px;*/					
     padding: 2px;				
     font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
+    background: white;	
+    border: 0px;
     pointer-events: none;			
 }
+
+button:focus {outline:0;}
