@@ -72,9 +72,9 @@ function init() {
                 if (d.Year_of_Release != "N/A")
                     d.Year_of_Release == +d.Year_of_Release;
                 else d.Year_of_Release = null;
-                //ignore games with <10 reviews
+                //ignore games with <5 reviews
                 //remove trivial values
-                if ((+d.Critic_Count>9 || +d.User_Count>9) &&
+                if ((+d.Critic_Count>4 || +d.User_Count>4) &&
                     (d.Critic_Score!="" && d.User_Score!="" && d.User_Score!="tbd")) {
                     
                     d.Critic_Score = +d.Critic_Score;
@@ -189,7 +189,6 @@ function drawDots () {
         .data(data)
         .enter().append("circle")
         .attr("class", "dot")
-        .attr("r", 2.5)
         .attr("cx", function(d) { 
             if (xLabel == "Year")
                 return chart.xScale(d.Year_of_Release)
@@ -211,6 +210,17 @@ function drawDots () {
                 return chart.yScale(d.Critic_Score);
             else if (yLabel == "User Score")
                 return chart.yScale(d.User_Score);
+        })
+        .attr("r", function(d) {
+            if (xLabel=="Critic Score" || yLabel=="Critic Score") {
+                if (d.Critic_Score==null)
+                    return 0;
+            }
+            if (xLabel=="User Score" || yLabel=="User Score") {
+                if (d.User_Score==null)
+                    return 0;
+            }
+            return 2.5;
         })
         .style("fill", function(d) {
             if (d.Genre == "Action")
