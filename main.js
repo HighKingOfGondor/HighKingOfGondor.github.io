@@ -1,6 +1,6 @@
 //measurements
-var width = 800;
-var height = 775;
+var width = 900;
+var height = 900;
 var margin = { top: 10, right: 10, bottom: 100, left: 50 };
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
@@ -39,7 +39,7 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
     yearRange = years;
     if (displays.includes("Year")) {
         xLabel = "Year";
-        yLabel = displays[1];
+        yLabel = displays[0]=="Year" ? ylabel=displays[1] : ylabel=displays[0];
         line = true;
     } else {
         xLabel = displays[0];
@@ -52,33 +52,38 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
     	resetAxis();
     	createAxis();
     }
-    if (line == true) {
-        drawLines();
-    } else {
+    // if (line == true) {
+    //     drawLines();
+    // } else {
         drawDots();
-    }
+    //}
 }
 
 function init() {
-
     chartWidth = width - margin.left - margin.right;
     chartHeight = height - margin.top - margin.bottom;
     d3.csv ("Video_Games_Sales_as_at_22_Dec_2016.csv", function (error, csv) {
         if (error) {
-        return console.warn(error);
+            return console.warn(error);
         } else {
             data = csv;
             data.forEach(function(d) {
                 d.Global_Sales = +d.Global_Sales;
-            });
-            data.forEach(function(d) {
-                d.Year_of_Release = +d.Year_of_Release;
-            });
-            data.forEach(function(d) {
-                d.Critic_Score = +d.Critic_Score;
-            });
-            data.forEach(function(d) {
-                d.User_Score = +d.User_Score;
+                if (d.Year_of_Release != "N/A")
+                    d.Year_of_Release == +d.Year_of_Release;
+                else d.Year_of_Release = null;
+                //ignore games with <10 reviews
+                //remove trivial values
+                if ((+d.Critic_Count>9 || +d.User_Count>9) &&
+                    (d.Critic_Score!="" && d.User_Score!="" && d.User_Score!="tbd")) {
+                    
+                    d.Critic_Score = +d.Critic_Score;
+                    d.User_Score = 10 * +d.User_Score;
+
+                } else {
+                    d.Critic_Score = null;
+                    d.User_Score = null
+                }
             });
             console.log("CSV loaded");
         }
@@ -145,7 +150,8 @@ function createAxis () {
 
     // x axis header label
     chart.append("text")
-        .style("font-size", "12px")
+        .style("font-size", "14px")
+        .attr("font-family", "sans-serif")
         .attr("class", "text")
         .attr("text-anchor", "middle")
         .attr("transform", "translate(" + (margin.left + chartWidth / 2.0) + ", " + (chartHeight + (margin.bottom / 2.0)) + ")")
@@ -169,7 +175,8 @@ function createAxis () {
 
     // y axis header label
     chart.append('text')
-        .style("font-size", "12px")
+        .style("font-size", "14px")
+        .attr("font-family", "sans-serif")
         .attr("text-anchor", "middle")
         .attr("class", "text")
         .attr("transform", "translate(" + (margin.left / 2.0) + ", " + (chartHeight / 2.0) + ") rotate(-90)")
@@ -184,12 +191,17 @@ function drawDots () {
         .attr("class", "dot")
         .attr("r", 2.5)
         .attr("cx", function(d) { 
-            if (xLabel == "Sales")
+            if (xLabel == "Year")
+                return chart.xScale(d.Year_of_Release)
+            else if (xLabel == "Sales")
                 return chart.xScale(d.Global_Sales);
             else if (xLabel == "Critic Score") 
                 return chart.xScale(d.Critic_Score);
-            else if (xLabel == "User Score")
-                return chart.xScale(d.User_Score);  
+            else if (xLabel == "User Score") {
+                if (d.User_Score = null)
+                    return null;
+                return chart.xScale(d.User_Score);
+            }
         })
         //y position based on the value passed
         .attr("cy", function(d) { 
@@ -198,9 +210,35 @@ function drawDots () {
             else if (yLabel == "Critic Score") 
                 return chart.yScale(d.Critic_Score);
             else if (yLabel == "User Score")
-                return chart.yScale(d.User_Score); 
+                return chart.yScale(d.User_Score);
         })
-        .style("fill", "steelblue")
+        .style("fill", function(d) {
+            if (d.Genre == "Action")
+                return "steelblue";
+            if (d.Genre == "Adventure")
+                return "springgreen";
+            if (d.Genre == "Fighting")
+                return "maroon"
+            if (d.Genre == "Misc")
+                return "dimgray"
+            if (d.Genre == "Platform")
+                return "goldenrod"
+            if (d.Genre == "Puzzle")
+                return "darkslateblue"
+            if (d.Genre == "Racing")
+                return "brown"
+            if (d.Genre == "Role-Playing")
+                return "burlywood"
+            if (d.Genre == "Shooter")
+                return "saddlebrown"
+            if (d.Genre == "Simulation")
+                return "darkgreen"
+            if (d.Genre == "Sports")
+                return "darkmagenta"
+            if (d.Genre == "Strategy")
+                return "teal"
+        })
+        .style("opacity", 0.8)
         .style("stroke", "none")
         .filter(function(d) {
 		    for(var i = 0; i < genres.length; i++)
@@ -213,12 +251,12 @@ function drawDots () {
 		    d3.select(this).style("opacity", 0.0);
 		    return false;
         })
-        //pop up with information with mouse is over the dot
+        //tooltip
         .on("mouseover", function(d) {      
             div.transition()        
-                .duration(200)      
+                // .duration(200)      
                 .style("opacity", .9);      
-            div.html(d.Name + "<br/>"  + d.Publisher + "<br/>"  + d.Developer + "<br/>"  + d.Year_of_Release + "<br/>"  + d.Rating)  
+            div.html(d.Name + "<br/>"  + d.Publisher + "<br/>"  + d.Developer + "<br/>Released "  + d.Year_of_Release + "<br/>Rating: "  + d.Rating)  
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
             })       
