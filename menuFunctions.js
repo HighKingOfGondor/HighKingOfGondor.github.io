@@ -56,7 +56,7 @@ function confirm () {
 				displayConfirmed.pop();
 			}
 		}
-	} 
+	}
 	if ((document.getElementById("earlyYear") == null) && (document.getElementById("laterYear") != null)) {
 		var yearConfirmed = ["1984", document.getElementById("laterYear").value];
 	} else if ((document.getElementById("earlyYear") != null) && (document.getElementById("laterYear") == null)) {
