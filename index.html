@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <head>
-	<title>Video Game Business Visualization</title>
+	<title>Market Trends in Gaming</title>
  	<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
  	<link rel="stylesheet" type="text/css" href="./stylesheet.css">
  	<script src="https://d3js.org/d3.v4.min.js"></script>       
@@ -15,13 +15,12 @@
 		var displayFields = ["Sales", "Year", "Critic Score", "User Score"];
 	</script>
 	<div class="header">
-		<h1>Video Game Business Visualization</h2>
-		<p class="subtitle">A Visualization by Jared Wheeler and Michael Wakin</p>
+		<h1>Market Trends in Gaming</h2>
 	</div>
 	<section class="display">
 		<div class="bigdiv menu">
-			<div class="menu-title">Data</div>
-			<button class="fields" id="genreFields">Genre Fields</button>
+<!-- 			<div class="menu-title">Data</div>
+ -->			<button class="fields" id="genreFields" >Genres</button>
 		    <div class="fields-menu" id="genre-menu">
 		    	<label class="checkbox">
 		    		<input type="checkbox" id="Action">Action</label>
@@ -48,7 +47,7 @@
 		    	<label class="checkbox">
 		    		<input type="checkbox" id="Strategy">Strategy</label>
 		    </div>
-		    <button class="fields" id="pubFields">Publisher Fields</button>
+		    <button class="fields" id="pubFields">Publishers</button>
 		    <div class="fields-menu" id="pub-menu">
 		    	<label class="checkbox">
 		    		<input type="checkbox" id="Electronic Arts">Electronic Arts</label>
@@ -74,19 +73,21 @@
 		    	<label class="checkbox">
 		    		<input type="checkbox" id="Smaller Publishers">Smaller Publishers</label>
 		    </div>
-		    <div class="menu-title">Display</div>
-		    <label class="checkbox" style="color: white; padding-left: 8em;">
+<!-- 		    <div class="menu-title">Display</div>	-->
+				<div class="checkboxes">
+		    <label class="checkbox">
 		    	<input type="checkbox" id="Sales">Sales</label>
-		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    <label class="checkbox">
 		    	<input type="checkbox" id="Year">Year</label>
-		    <label class="checkbox" style="color: white; padding-left: 8em;">
+		    <label class="checkbox">
 		    	<input type="checkbox" id="Critic Score">Critic Score</label>
-			<label class="checkbox" style="color: white; padding-left: 8em; padding-bottom: 15px;">
+			<label class="checkbox" style="padding-bottom: 8px;">
 		    	<input type="checkbox" id="User Score">User Score</label>
-		    <div class="menu-title">Filters</div>
-		    <form style="color: white; padding-left: 2em; padding-top: 15px; padding-bottom: 10px; border-color: white; border-bottom: solid;">
-				Released in Range <input type="text" id="earlyYear" maxlength="4" size="4">
-				to <input type="text" id="laterYear" maxlength="4" size="4">
+		    </div>
+<!-- 		    <div class="menu-title">Filters</div>
+ -->		    <form style="padding-top: 6px; padding-left: 2px; padding-bottom: 6px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; border-top-style: solid; border-bottom-style: solid; border-color: rgb(214,210,196); border-width: 0.5px">
+				Year range: <input type="text" id="earlyYear" maxlength="4" size="1" style="height: 8px; font-size: 8px;">
+				to <input type="text" id="laterYear" maxlength="4" size="1" style="height: 8px; font-size: 8px;">
 			</form>
 			<button class="confirm" id="confirm" onclick="confirm()">Confirm</button>
 		</div>
@@ -94,5 +95,4 @@
 	</section>
     <script src="./menuFunctions.js"></script>
     <script src="./main.js"></script>
-    
 </body>
