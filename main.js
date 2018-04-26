@@ -15,7 +15,7 @@ var yLabel;
 var chart;
 var chartHeight;
 var chartWidth;
-var line = false;
+var drawLine = false;
 
 //chart data visuals
 var genres = [];
@@ -40,11 +40,11 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
     if (displays.includes("Year")) {
         xLabel = "Year";
         yLabel = displays[0]=="Year" ? ylabel=displays[1] : ylabel=displays[0];
-        line = true;
+        drawLine = true;
     } else {
         xLabel = displays[0];
         yLabel = displays[1];
-        line = false;
+        drawLine = false;
     }
     if (d3.select(".x.axis").empty()) {
     	createAxis();
@@ -180,6 +180,19 @@ function createAxis () {
 }
 
 function drawDots () {
+    var line = d3.line()
+        .x(function(d) { return x(d.Year_of_Release); })
+        .y(function(d) { return 10 })
+        // .y(function(d) {
+        //     if (yLabel == "Critic Score")
+        //         return y(d.Critic_Score)
+        //     else if (yLabel == "User Score")
+        //         return y(d.User_Score)
+        //     else if (yLabel == "Sales")
+        //         return y(d.Sales)
+        //     else return 4;
+        // });
+
     chart.plotArea.selectAll(".dot")
         .data(data)
         .enter().append("circle")
@@ -265,11 +278,11 @@ function drawDots () {
         .on("mouseover", function(d) {
             d3.select(this)
                 .transition()
-                .duration(100)
+                .duration(50)
                 .attr("r", 3.5)
-            div.transition()        
-                .duration(100)
-                .style("opacity", 0.9);      
+            div.transition()
+                .duration(50)
+                .style("opacity", 0.9)
             div.html(d.Name +
                 "<br/>" + d.Publisher +
                 "<br/>" + d.Platform +
@@ -284,34 +297,12 @@ function drawDots () {
         .on("mouseout", function(d) {
             d3.select(this)
                 .transition()
-                .duration(50)
+                .duration(25)
                 .attr("r",2.5)
             div.transition()        
                 //.duration(0)      
                 .style("opacity", 0);   
         });
-
-
-
-      //   .on('mouseover', function () {
-      //   d3.select(this)
-      //     .transition()
-      //     .duration(500)
-      //     .attr('r',20)
-      //     .attr('stroke-width',3)
-      // })
-      // .on('mouseout', function () {
-      //   d3.select(this)
-      //     .transition()
-      //     .duration(500)
-      //     .attr('r',10)
-      //     .attr('stroke-width',1)
-      // })
-
-
-    if (line) {
-
-    }
 }
 
 
