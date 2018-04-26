@@ -28,6 +28,7 @@ var yearRange;
 
 //data
 var data;
+var result;
 
 init();
 initChart();
@@ -40,11 +41,9 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
     if (displays.includes("Year")) {
         xLabel = "Year";
         yLabel = displays[0]=="Year" ? ylabel=displays[1] : ylabel=displays[0];
-        drawLine = true;
     } else {
         xLabel = displays[0];
         yLabel = displays[1];
-        drawLine = false;
     }
     if (d3.select(".x.axis").empty()) {
     	createAxis();
@@ -53,6 +52,7 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
     	createAxis();
     }
     drawDots();
+    drawAvgLine();
 }
 
 function init() {
@@ -103,6 +103,7 @@ function resetAxis () {
         .remove();
     chart.selectAll(".text")
     	.remove();
+    d3.select("path.line").remove()
 }
 
 function createAxis () {
@@ -179,20 +180,40 @@ function createAxis () {
         .text(yLabel);
 }
 
-function drawDots () {
+function drawAvgLine () {
+    var groups = data.reduce(function (r, o) {
+        var k = o.Year_of_Release;
+        if (r[k]) {
+            if (o.Global_Sales) (r[k].Global_Sales += o.Global_Sales) && ++r[k].Average;
+        } else {
+           r[k] = o; 
+           r[k].Average = 1; // taking 'Average' attribute as an items counter(on the first phase)
+        }
+        return r;
+    }, {});
+        
+    // getting "average of Points"    
+    result = Object.keys(groups).map(function (k) {
+        groups[k].Average = Math.round(groups[k].Global_Sales/groups[k].Average);
+        return groups[k];
+    });
+    console.log(result);
     var line = d3.line()
-        .x(function(d) { return x(d.Year_of_Release); })
-        .y(function(d) { return 10 })
-        // .y(function(d) {
-        //     if (yLabel == "Critic Score")
-        //         return y(d.Critic_Score)
-        //     else if (yLabel == "User Score")
-        //         return y(d.User_Score)
-        //     else if (yLabel == "Sales")
-        //         return y(d.Sales)
-        //     else return 4;
-        // });
+        .x(function(d) { if(d.Year_of_Release == null) {return 2020;} else { return chart.xScale(d.Year_of_Release);}})
+        .y(function(d) { return chart.yScale(d.Average)});
+    chart.plotArea.append("path")
+        .datum(result)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .attr("id", "line")
+        .attr("class", "line")
+        .attr("d", line);
+}
 
+function drawDots () {
     chart.plotArea.selectAll(".dot")
         .data(data)
         .enter().append("circle")
@@ -305,81 +326,3 @@ function drawDots () {
         });
 }
 
-
-
-
-
-
-// var margin = {top: 20, right: 20, bottom: 30, left: 50},
-//     width = 940 - margin.left - margin.right,
-//     height = 450 - margin.top - margin.bottom;
-// var x;
-// var y;
-// var xAxis;
-// var yAxis;
-// var svg;
-// var data;
-
-// init();
-// callData();
-// initAxis();
-// updateChart();
-
-// function init () {
-//   svg = d3.select("#graph").append("svg")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-//   xAxis = d3.axisBottom(x).tickFormat(d3.format("d"));
-//   yAxis = d3.axisLeft(y);
-//   x = d3.scaleLinear().range([0, width]);
-//   y = d3.scaleLinear().range([height, 0]);
-// }
-
-// function initAxis() {
-//     x.domain([d3.min((data, function(d) { return d.Year_of_Release; })), d3.max((data, function(d) { return d.Year_of_Release;}))]);
-//     y.domain([d3.min((data, function(d) { return d.Global_Sales; })), d3.max((data, function(d) { return d.Global_Sales;}))]);
-//     svg.append("g")
-//         .attr("class", "x axis")
-//         .attr("transform", "translate(0," + height + ")")
-//         .call(xAxis)
-//       .append("text")
-//           .attr("class", "label")
-//           .attr("x", width/2)
-//           .attr("y", 30)
-//           .style("font-size", "14px")
-//           .style("text-anchor", "middle")
-//           .text("Year of Release");
-//     svg.append("g")
-//         .attr("class", "y axis")
-//         .call(yAxis)
-//       .append("text")
-//         .attr("class", "label")
-//           .attr("transform", "rotate(-90)")
-//           .attr("x", -(height/2))
-//           .attr("y", -22)
-//         .style("font-size", "14px")
-//       .style("text-anchor", "middle")
-//       .text("Global Sales (millions)");
-// }
-
-// function callData () {
-//   d3.csv("./Video_Games_Sales_as_at_22_Dec_2016.csv", function(error, csv) {
-//     if (error) 
-//       throw error;
-//     data = csv;
-//   });
-// }
-
-// function updateChart() {
-//     svg.selectAll(".dot")
-//         .data(data)
-//         .enter().append("circle")
-//           .attr("class", "dot")
-//           .attr("r", 1.5)
-//           .attr("cx", function(d) { return d.Year_of_Release; })
-//           .attr("cy", function(d) { return d.Global_Sales; })
-//           .style("fill", "steelblue")
-//           .style("stroke", "none");
-// }
