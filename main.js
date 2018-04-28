@@ -104,7 +104,6 @@ function resetAxis () {
     chart.selectAll(".text")
     	.remove();
     d3.select("path.line").remove()
-    d3.select(chart.selectAll(".tick")).remove();
 }
 
 function createAxis () {
