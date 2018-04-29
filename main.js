@@ -28,6 +28,7 @@ var yearRange;
 
 //data
 var data;
+var parsedData = [];
 var result;
 
 init();
@@ -253,7 +254,6 @@ function drawDots () {
             }
             return 2.5;
         })
-
         .style("fill", function(d) {
             if (d.Genre == "Action")
                 return "steelblue";
@@ -285,14 +285,43 @@ function drawDots () {
         .style("stroke", "none")
 
         .filter(function(d) {
-		    for(var i = 0; i < genres.length; i++) {
-		        if (d.Genre == genres[i])
-		        	return true;
-		        if (d.Publisher == publishers[i])
-		        	return true;
-		    }
-		    d3.select(this).style("opacity", 0.0);
-		    return false;
+            //genres selected but no publishers
+            if ((publishers === undefined || publishers.length == 0) && (typeof genres !== 'undefined' && genres.length > 0)) {
+                for (var k = 0; k < genres.length; k++) {
+                    if (d.Genre == genres[j]) {
+                        console.log(d);
+                        return true
+                    }
+                }
+                d3.select(this).style("opacity", 0.0);
+                return false;
+              //publishers passed but no genres
+            } else if ((genres === undefined || genres.length == 0) && (typeof publishers !== 'undefined' && publishers.length > 0)) {
+                for (var k = 0; k < publishers.length; k++) {
+                    if (d.Publisher == publishers[k]) {
+                        console.log(d);
+                        return true;
+                    }
+                }
+                d3.select(this).style("opacity", 0.0);
+                return false; 
+            //both publishers and genres passed
+            } else if ((typeof publishers !== 'undefined' && publishers.length > 0) && (typeof genres !== 'undefined' && genres.length > 0)) {
+                console.log("here");
+                for (var j = 0; j < genres.length; j++) {
+                    for (var k = 0; k < publishers.length; k++) {
+                        if ((d.Publisher == publishers[k]) && (d.Genre == genres[j])) {
+                            console.log(d);
+                            return true;
+                        }
+                    }
+                }
+                d3.select(this).style("opacity", 0.0);
+                return false;
+            //nothing selected
+            } else {
+                return true;
+            }
         })
 
         //tooltip
