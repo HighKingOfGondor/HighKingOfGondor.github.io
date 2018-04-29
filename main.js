@@ -289,7 +289,6 @@ function drawDots () {
             if ((publishers === undefined || publishers.length == 0) && (typeof genres !== 'undefined' && genres.length > 0)) {
                 for (var k = 0; k < genres.length; k++) {
                     if (d.Genre == genres[j]) {
-                        console.log(d);
                         return true
                     }
                 }
@@ -299,7 +298,6 @@ function drawDots () {
             } else if ((genres === undefined || genres.length == 0) && (typeof publishers !== 'undefined' && publishers.length > 0)) {
                 for (var k = 0; k < publishers.length; k++) {
                     if (d.Publisher == publishers[k]) {
-                        console.log(d);
                         return true;
                     }
                 }
@@ -311,7 +309,6 @@ function drawDots () {
                 for (var j = 0; j < genres.length; j++) {
                     for (var k = 0; k < publishers.length; k++) {
                         if ((d.Publisher == publishers[k]) && (d.Genre == genres[j])) {
-                            console.log(d);
                             return true;
                         }
                     }
