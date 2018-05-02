@@ -47,13 +47,13 @@ function set (genresPassed, publishersPassed, displaysPassed, years) {
         yLabel = displays[1];
     }
     if (d3.select(".x.axis").empty()) {
-    	createAxis();
+        createAxis();
     } else {
-    	resetAxis();
-    	createAxis();
+        resetAxis();
+        createAxis();
     }
     drawDots();
-    drawAvgLine();
+    //drawAvgLine();
 }
 
 function init() {
@@ -103,7 +103,7 @@ function resetAxis () {
     chart.selectAll(".dot")
         .remove();
     chart.selectAll(".text")
-    	.remove();
+        .remove();
     d3.select("path.line").remove()
 }
 
@@ -141,8 +141,8 @@ function createAxis () {
 
     chart.xAxisContainer = chart.append("g")
         .attr("transform", "translate(" + (margin.left) + ", " + (chartHeight + margin.top) + ")")
-    	.transition().duration(500)
-    	.attr("class", "x axis")
+        .transition().duration(500)
+        .attr("class", "x axis")
         .call(chart.xAxis);
 
     // x axis header label
@@ -181,38 +181,38 @@ function createAxis () {
         .text(yLabel);
 }
 
-function drawAvgLine () {
-    var groups = data.reduce(function (r, o) {
-        var k = o.Year_of_Release;
-        if (r[k]) {
-            if (o.Global_Sales) (r[k].Global_Sales += o.Global_Sales) && ++r[k].Average;
-        } else {
-           r[k] = o; 
-           r[k].Average = 1; // taking 'Average' attribute as an items counter(on the first phase)
-        }
-        return r;
-    }, {});
+// function drawAvgLine () {
+//     var groups = data.reduce(function (r, o) {
+//         var k = o.Year_of_Release;
+//         if (r[k]) {
+//             if (o.Global_Sales) (r[k].Global_Sales += o.Global_Sales) && ++r[k].Average;
+//         } else {
+//            r[k] = o; 
+//            r[k].Average = 1; // taking 'Average' attribute as an items counter(on the first phase)
+//         }
+//         return r;
+//     }, {});
         
-    // getting "average of Points"    
-    result = Object.keys(groups).map(function (k) {
-        groups[k].Average = Math.round(groups[k].Global_Sales/groups[k].Average);
-        return groups[k];
-    });
-    console.log(result);
-    var line = d3.line()
-        .x(function(d) { if(d.Year_of_Release == null) {return 2020;} else { return chart.xScale(d.Year_of_Release);}})
-        .y(function(d) { return chart.yScale(d.Average)});
-    chart.plotArea.append("path")
-        .datum(result)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
-        .attr("id", "line")
-        .attr("class", "line")
-        .attr("d", line);
-}
+//     // getting "average of Points"    
+//     result = Object.keys(groups).map(function (k) {
+//         groups[k].Average = Math.round(groups[k].Global_Sales/groups[k].Average);
+//         return groups[k];
+//     });
+//     console.log(result);
+//     var line = d3.line()
+//         .x(function(d) { if(d.Year_of_Release == null) {return 2020;} else { return chart.xScale(d.Year_of_Release);}})
+//         .y(function(d) { return chart.yScale(d.Average)});
+//     chart.plotArea.append("path")
+//         .datum(result)
+//         .attr("fill", "none")
+//         .attr("stroke", "steelblue")
+//         .attr("stroke-linejoin", "round")
+//         .attr("stroke-linecap", "round")
+//         .attr("stroke-width", 1.5)
+//         .attr("id", "line")
+//         .attr("class", "line")
+//         .attr("d", line);
+// }
 
 function drawDots () {
     chart.plotArea.selectAll(".dot")
@@ -351,4 +351,3 @@ function drawDots () {
                 .style("opacity", 0);   
         });
 }
-
